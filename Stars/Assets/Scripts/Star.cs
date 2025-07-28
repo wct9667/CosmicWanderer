@@ -207,7 +207,7 @@ public class Star : MonoBehaviour
     public void SetConstellation(GameObject constellation)
     {
       this.constellation = constellation;
-      constellation.SetActive(false);
+      constellation.SetActive(true);
     }
 
     public void ActivateConstellation()

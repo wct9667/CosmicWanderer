@@ -137,8 +137,7 @@ public class ConstellationManager : MonoBehaviour
     constellationHolder.transform.parent = transform;
     if (!constellationHolder.GetComponent<Constellation>())
       constellationHolder.AddComponent<Constellation>();
-    
-    
+
     if(constellationVisible.ContainsKey($"Constellation {index}")) Destroy(constellationVisible[$"Constellation {index}"]);
     constellationVisible[$"Constellation {index}"] = constellationHolder;
     
@@ -170,5 +169,6 @@ public class ConstellationManager : MonoBehaviour
       lineRenderer.SetPosition(1, pos2 - dir);
       lineRenderer.startWidth *= 3;
     }
+    
   }
 }

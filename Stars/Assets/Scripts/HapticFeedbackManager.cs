@@ -18,7 +18,6 @@ public class HapticFeedbackManager : MonoBehaviour
     public void ToggleHaptics(bool hapticsEnabled)
     {
         this.hapticsEnabled = hapticsEnabled;
-        Debug.Log(this.hapticsEnabled);
     }
 
 }

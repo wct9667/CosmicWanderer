@@ -981,7 +981,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 758872770}
-  input: {fileID: 558621140}
 --- !u!1 &315238048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1707,7 +1706,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 558621141}
-  - component: {fileID: 558621140}
   - component: {fileID: 558621142}
   - component: {fileID: 558621143}
   - component: {fileID: 558621144}
@@ -1718,23 +1716,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!114 &558621140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558621139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7464fbf30b1abb47ae6fc6f95d09d7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doubleTapEventChannelSO: {fileID: 11400000, guid: d21c2d3a0d1652c4d9c9b2ba23195676,
-    type: 2}
-  holdEventChannelSO: {fileID: 11400000, guid: e508191bb95b2a047a2c59a64a873035, type: 2}
-  zoomEventChannelSO: {fileID: 11400000, guid: 91c343faeb1ec4741882bd7bee4eb587, type: 2}
-  zoomSpeed: 0.1
 --- !u!4 &558621141
 Transform:
   m_ObjectHideFlags: 0
@@ -2670,6 +2651,7 @@ GameObject:
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
+  - component: {fileID: 963194232}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2809,6 +2791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 1742860728}
   fit: {fileID: 1742860727}
+  cameraBackgroundAlpha: 0.23921569
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2837,6 +2820,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &963194232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8f080bb1c6a584797eee9f003eefba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: 2855454a7f712734e86802437be3d02c, type: 2}
+  zoomSpeed: 0.1
+  minZoom: 20
+  maxZoom: 100
 --- !u!1 &1000141943
 GameObject:
   m_ObjectHideFlags: 0
@@ -3308,9 +3307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1096579267}
   - component: {fileID: 1096579268}
-  - component: {fileID: 1096579270}
   - component: {fileID: 1096579269}
-  - component: {fileID: 1096579271}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -3363,62 +3360,7 @@ MonoBehaviour:
   enabledDraw: 0
   imageConst: {fileID: 1000141945}
   imageDraw: {fileID: 545159268}
---- !u!114 &1096579270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1096579266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf14e1476444e642ae890e4d8b52398, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EventChannel: {fileID: 11400000, guid: e508191bb95b2a047a2c59a64a873035, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1096579269}
-        m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
-        m_MethodName: EnableOrDisableConstCrossHair
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1096579271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1096579266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf14e1476444e642ae890e4d8b52398, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EventChannel: {fileID: 11400000, guid: d21c2d3a0d1652c4d9c9b2ba23195676, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1096579269}
-        m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
-        m_MethodName: EnableOrDisableConstCrossHairDraw
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  inputReader: {fileID: 11400000, guid: 2855454a7f712734e86802437be3d02c, type: 2}
 --- !u!1 &1116420095
 GameObject:
   m_ObjectHideFlags: 0
@@ -6539,7 +6481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1745338793}
   - component: {fileID: 1745338792}
-  - component: {fileID: 1745338791}
+  - component: {fileID: 1745338794}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -6547,26 +6489,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1745338791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1745338790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &1745338792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6597,6 +6519,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1745338794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745338790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_PointAction: {fileID: 3520976277129060962, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_MoveAction: {fileID: 3084286782213980934, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_SubmitAction: {fileID: -2905276834382491018, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_CancelAction: {fileID: -1839151518551774966, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_LeftClickAction: {fileID: 51524279203241801, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_MiddleClickAction: {fileID: -3185690953792535671, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_RightClickAction: {fileID: -7937761725138247728, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_ScrollWheelAction: {fileID: -5728395286887656705, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_TrackedDevicePositionAction: {fileID: -2448659982526364180, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: -8330816602854813683, guid: b5c43b9fd0d25814d893608f5c9b00e7,
+    type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &1749260140
 GameObject:
   m_ObjectHideFlags: 0
@@ -8261,8 +8224,6 @@ GameObject:
   - component: {fileID: 2140852558}
   - component: {fileID: 2140852560}
   - component: {fileID: 2140852559}
-  - component: {fileID: 2140852561}
-  - component: {fileID: 2140852562}
   m_Layer: 0
   m_Name: ParentToCamera
   m_TagString: Untagged
@@ -8341,68 +8302,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3886a560e43b2842aaf321d7860504b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: 2855454a7f712734e86802437be3d02c, type: 2}
   maxDistance: 1000
   layer:
     serializedVersion: 2
     m_Bits: 128
   _constellationManager: {fileID: 1043501063}
   haptics: {fileID: 558621142}
---- !u!114 &2140852561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140852553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78dbd8044ad12494b9f06e0fab151deb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EventChannel: {fileID: 11400000, guid: 91c343faeb1ec4741882bd7bee4eb587, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2140852560}
-        m_TargetAssemblyTypeName: DrawingConstellations, Assembly-CSharp
-        m_MethodName: Zoom
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &2140852562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140852553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf14e1476444e642ae890e4d8b52398, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EventChannel: {fileID: 11400000, guid: d21c2d3a0d1652c4d9c9b2ba23195676, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2140852560}
-        m_TargetAssemblyTypeName: DrawingConstellations, Assembly-CSharp
-        m_MethodName: EnableRayCastDrawConstellations
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

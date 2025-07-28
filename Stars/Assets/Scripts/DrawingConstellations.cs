@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 public class DrawingConstellations : MonoBehaviour
 {
+    [Header("Input")] 
+    [SerializeField] private InputReader inputReader;
+    
     [Header("Collision Detection")]
-    [SerializeField] private float maxDistance = 100f; // Maximum distance for the raycast
+    [SerializeField] private float maxDistance = 100f; 
     [SerializeField] private LayerMask layer;
     [SerializeField] private ConstellationManager _constellationManager;
     [SerializeField] private HapticFeedbackManager haptics;
@@ -14,7 +18,6 @@ public class DrawingConstellations : MonoBehaviour
     private int currentIndex = -1;
     
     private bool constellationsDrawingEnabled;
-    private bool constellationsEnabled;
 
     public bool ConstDraw()
     {
@@ -27,20 +30,20 @@ public class DrawingConstellations : MonoBehaviour
         currentIndex = _constellationManager.ConstellationNum - 1;
     }
     
-    //allows a raycast to hit a star and show its related constellations
-    public void EnableRayCastNormalConstellations()
+    private void EnableRayCastDrawConstellations()
     {
-        constellationsEnabled = !constellationsEnabled;
-        if (!constellationsEnabled) constellationsDrawingEnabled = false;
-    }
-    
-    //allows a raycast to hit a star and show its related constellations
-    public void EnableRayCastDrawConstellations()
-    {
-        if(!constellationsEnabled) return;
         constellationsDrawingEnabled = !constellationsDrawingEnabled;
         if(constellationsDrawingEnabled)  currentIndex++;
-        
+    }
+
+    private void OnEnable()
+    {
+        inputReader.DoubleTap += EnableRayCastDrawConstellations;
+    }
+    
+    private void OnDisable()
+    {
+        inputReader.DoubleTap -= EnableRayCastDrawConstellations;
     }
 
     void Update()
@@ -72,10 +75,5 @@ public class DrawingConstellations : MonoBehaviour
         {
             Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red);
         }
-    }
-    
-    public void Zoom(float increment)
-    {
-        mainCamera.fieldOfView = Mathf.Clamp(mainCamera.fieldOfView - increment, 20f, 100f);
     }
 }

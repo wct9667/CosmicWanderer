@@ -1,46 +1,50 @@
-using System;
 using UnityEngine;
+using UnityEngine.iOS;
 using UnityEngine.UI;
 
 public class PhoneCameraDisplay : MonoBehaviour
 {
+  
+  [Header("XR Camera Controls")]
+  [SerializeField] private RawImage background;
+  [SerializeField] private AspectRatioFitter fit;
+  [SerializeField] private float cameraBackgroundAlpha = 61/255f;
+
   private bool camAvailable;
   private WebCamTexture backCam;
   private Texture defaultBackground;
-
-  public RawImage background;
-  public AspectRatioFitter fit;
-
-
-  private Camera cam; 
+  private Camera mainCam; 
+  
   private void Start()
   {
-    cam = Camera.main;
-    //fallback background
+    mainCam = Camera.main;
     defaultBackground = background.texture;
     
-    //look for cameras
+    //Get available cameras
     WebCamDevice[] devices = WebCamTexture.devices;
     
-    //no camera
     if (devices.Length == 0)
     {
-      Debug.Log("No Camera detected");
+      Debug.LogWarning("No Cameras detected");
       camAvailable = false;
       return;
     }
     
-    //cause of multiple cameras
-    for (int i = 0; i < devices.Length; i++)
+    //check for multiple cameras, 
+    foreach (WebCamDevice device in devices)
     {
-      if (devices[i].isFrontFacing) continue;
+      //ignore cameras  facing user (selfie)
+      if (device.isFrontFacing) continue;
       
-      backCam = new WebCamTexture(devices[i].name, Screen.width, Screen.height);
+      backCam = new WebCamTexture(device.name, Screen.width, Screen.height);
     }
 
-    if (backCam == null) {Debug.Log("no phone");
+    if (backCam == null) 
+    {
+      Debug.LogWarning("Phone has no front facing camera");
       background.texture = defaultBackground;
-      return;}
+      return;
+    }
     
     backCam.Play();
     background.texture = backCam;
@@ -48,35 +52,37 @@ public class PhoneCameraDisplay : MonoBehaviour
     camAvailable = true;
   }
 
+  /// <summary>
+  /// Turn camera on or off
+  /// </summary>
+  /// <param name="toggle">Bool to control camera</param>
   public void ToggleCameraActive(bool toggle)
   {
     background.enabled = toggle;
-    Color camColor = cam.backgroundColor;
+    Color camColor = mainCam.backgroundColor;
+    
+    //make camera clear alpha
     if (toggle)
     {
-      cam.backgroundColor = new Color(camColor.r, camColor.b, camColor.b,
-        61/255f);
+      mainCam.backgroundColor = new Color(camColor.r, camColor.b, camColor.b,
+        cameraBackgroundAlpha);
       return;
     }
-    cam.backgroundColor = new Color(camColor.r, camColor.b, camColor.b,
+    //set camera background to black
+    mainCam.backgroundColor = new Color(camColor.r, camColor.b, camColor.b,
       255f);
   }
 
   private void Update()
   {
     if (!camAvailable) return;
-
-    //get aspect ratio
-    float ratio = (float)backCam.width / (float)backCam.height;
+    
+    float ratio = backCam.width / (float)backCam.height;
     fit.aspectRatio = ratio;
     
     //set scale of texture
     float scaleY = backCam.videoVerticallyMirrored ? -1f : 1f;
     background.rectTransform.localScale = new Vector3(1f, scaleY, 1f);
-
-    //orientation of the video
-    int orient = -backCam.videoRotationAngle;
-    background.rectTransform.localEulerAngles = new Vector3(0, 0, orient);
-
+    background.rectTransform.localEulerAngles = new Vector3(0, 0, -backCam.videoRotationAngle);
   }
 }

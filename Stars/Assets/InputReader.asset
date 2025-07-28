@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74fec1ae79962834390eb5baa8784c64, type: 3}
-  m_Name: ZoomEventChannelSO
+  m_Script: {fileID: 11500000, guid: b7ecfb3e93a6c6e49b187c702de7e0ea, type: 3}
+  m_Name: InputReader
   m_EditorClassIdentifier: 
