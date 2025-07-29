@@ -152,7 +152,7 @@ public class Star : MonoBehaviour
       return 1 - Mathf.InverseLerp(-146, 796, magnitude);
     }
 
-    public void SetScale()
+    public void HighlightStar()
     {
       if (hasScaled) return;
 
@@ -199,7 +199,7 @@ public class Star : MonoBehaviour
       // Ensure original scale is restored
       transform.localScale = originalScale;
 
-      // Reset the `hasScaled` flag if you want to allow scaling again
+      // Reset the hasScaled
       hasScaled = false;
     }
     
