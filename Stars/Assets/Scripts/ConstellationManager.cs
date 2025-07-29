@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace constellations
+namespace Constellations
 {
   public class ConstellationManager : MonoBehaviour
   {

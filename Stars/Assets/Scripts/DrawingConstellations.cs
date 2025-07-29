@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace constellations
+namespace Constellations
 {
     public class DrawingConstellations : MonoBehaviour
     {
