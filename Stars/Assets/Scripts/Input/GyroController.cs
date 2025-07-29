@@ -1,46 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-public class GyroController : MonoBehaviour
+namespace input
 {
-    public float slerpValue = 0.2f;
-    public int verticalOffsetAngle = -90;
-    public int horizontalOffsetAngle = 0;
-    
-    private Quaternion phoneOrientation;
-    private Quaternion correctedPhoneOrientation;
-    private Quaternion horizontalRotationCorrection;
-    private Quaternion verticalRotationCorrection;
-    private Quaternion inGameOrientation;
-
-    private void Start()
+    public class GyroController : MonoBehaviour
     {
-        // Check if device has a gyroscope and enable it
-        if (SystemInfo.supportsGyroscope)
+        [Header("Rotation Modifiers")]
+        [SerializeField] private float slerpValue = 0.2f;
+        [SerializeField] private int verticalOffsetAngle = -90;
+        [SerializeField] private int horizontalOffsetAngle = 0;
+    
+    
+        //Rotation variables
+        private Quaternion horizontalRotationCorrection;
+        private Quaternion verticalRotationCorrection;
+
+        private void Start()
         {
-            Input.gyro.enabled = true;
+           CheckGyroSupport();
+        }
+
+        private void Update()
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, RotationAdjustment(Input.gyro.attitude, verticalOffsetAngle, horizontalOffsetAngle), slerpValue);
+        }
+
+        /// <summary>
+        /// Checks if the phone has gyro support and enables it
+        /// </summary>
+        private void CheckGyroSupport()
+        {
+            // Check if device has a gyroscope and enable it
+            if (SystemInfo.supportsGyroscope)
+            {
+                Input.gyro.enabled = true;
+                return;
+            }
+            Debug.LogWarning("Gyro not supported, App will be non-functional");
+        }
+        
+        /// <summary>
+        /// Corrects attitude to Unity Coordinates and optionally offsets the rotation. 
+        /// </summary>
+        /// <param name="attitude">attitude of phone</param>
+        ///  <param name="verticalOffset">Vector3-Left offset rotate camera</param>
+        ///  <param name="horizontalOffset">Vector3-Up offset to rotation camera</param>
+        /// <returns>Quaternion representing the corrected rotation</returns>
+        private Quaternion RotationAdjustment(Quaternion attitude, float verticalOffset = 0,  float horizontalOffset = 0)
+        {
+            // adjust by offset and account for different input systems (WHY DOES UNITY NOT DO THIS FOR ME)
+            return Quaternion.AngleAxis(horizontalOffset, Vector3.up) * 
+                   Quaternion.AngleAxis(verticalOffset, Vector3.left) * 
+                   new Quaternion(attitude.x, attitude.y, -attitude.z, -attitude.w);
+
         }
     }
-
-    private void Update()
-    {
-        // Retrieve gyroscopic information from the phone
-        phoneOrientation = Input.gyro.attitude;
-
-        // Correct the phone's orientation to match Unity's coordinate system
-        correctedPhoneOrientation = new Quaternion(phoneOrientation.x, phoneOrientation.y, -phoneOrientation.z, -phoneOrientation.w);
-
-        // Apply vertical and horizontal rotation corrections
-        verticalRotationCorrection = Quaternion.AngleAxis(verticalOffsetAngle, Vector3.left);
-        horizontalRotationCorrection = Quaternion.AngleAxis(horizontalOffsetAngle, Vector3.up);
-
-        // Combine all rotations to get the in-game orientation
-        inGameOrientation = horizontalRotationCorrection * verticalRotationCorrection * correctedPhoneOrientation;
-
-        // Smoothly rotate the camera to match the phone's orientation
-        transform.rotation = Quaternion.Slerp(transform.rotation, inGameOrientation, slerpValue);
-    }
 }
+
 
